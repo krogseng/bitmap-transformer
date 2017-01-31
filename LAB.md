@@ -8,7 +8,7 @@ For this assignment you will be building a bitmap transformer class.
 
 The core functionality is to pass a buffer to the bitmap transformer, and then apply
 one or more color transforms on the image.
-It will read a Bitmap in from disk, run one or more color transforms on the bitmap 
+The Bitmap image will be read from disk, apply one or more color transforms on the data, 
 and then write it out to a new file. 
 This project will require the use of node `Buffer` in order to manipulate binary data.
 
@@ -23,11 +23,15 @@ it will be easier to test
 One way to organize this is to:
 
 Create a `BitmapTransformer` class that 
-  1. takes a Buffer in the constructor, 
-  1. has a transform method that applies your given transformation (`toGrayscale`)
-  1. has a method or property for getting to the transformed buffer
+  1. takes a Buffer in the constructor
+  1. Process the header info to find out 
+    1. whether its pallette or non-pallette
+    1 and where the pixels are for this transform
+  1. has a transform method that applies your given transformation
+    1. iterate the "color pixels", apply a transformation to each.
+  1. has a property for getting to the transformed buffer
 
-If you want to include file system methods:
+Include file system helper methods:
   1. add a static `BitmapTransformer.read` async function that reads the file and passes back the
   class instance
   1. add an instance `BitmapTransformer.write` async funciton that writes out the buffer to the specified filename
