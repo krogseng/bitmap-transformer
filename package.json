@@ -7,12 +7,13 @@
         "test": "test"
     },
     "dependencies": {
-
+        "fs": "fs"
     },
     "devDependencies": {},
     "chai": "^3.5.0",
     "scripts": {
-        "test": "mocha"
+        "test": "mocha",
+        "eslint": "eslint app"
     },
     "repository": {
         "type": "git",
