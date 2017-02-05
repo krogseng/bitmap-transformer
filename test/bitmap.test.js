@@ -43,6 +43,7 @@ describe('all about the bitmap', () => {
         //what I'm really after
 
         BitmapTransformer.write('./test/output.bmp', (err, buffer) => {
+
             //assert.deepEqual(bitmap.buffer, buffer);
             done();
         }); //end of readfile
@@ -63,6 +64,7 @@ describe('all about the bitmap', () => {
                     })
                 }
             });
+
         });
     }); // close describe transformations
 
