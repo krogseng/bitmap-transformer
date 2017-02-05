@@ -5,7 +5,8 @@ const BitmapHeader = require('../lib/bitmap-header');
 const BitmapTransformer = require('../lib/bitmap-transformer');
 const invert = require('../lib/invert-transform');
 
-describe('all about the bitmap', () => {
+
+describe('test whole transformation of the bitmap', () => {
     let buffer = null;
     before(done => {
         fs.readFile('./images/non-palette-bitmap.bmp', (err, _buffer) => {
@@ -17,15 +18,13 @@ describe('all about the bitmap', () => {
         });
     }); //end buffer
 
-    it('calls BitmapTransformer.read', done => {
-        BitmapTransformer.read('./images/non-palette-bitmap.bmp', (err, _buffer) => {
+    after(done => {
+        fs.unlink('./test/output.bmp', err => {
             if (err) done(err);
-            else {
-                buffer = _buffer;
-            };
+            done();
         });
-        done();
     });
+
 
     it('read header', done => {
         const header = new BitmapHeader(buffer);
@@ -37,35 +36,32 @@ describe('all about the bitmap', () => {
         done();
     });
 
-    it.skip('test whole transform actually testing for write ', done => {
-        //this is for transform magic
-        const bitmap = new BitmapTransformer(buffer);
-        //what I'm really after
-
-        BitmapTransformer.write('./test/output.bmp', (err, buffer) => {
-
-            //assert.deepEqual(bitmap.buffer, buffer);
-            done();
-        }); //end of readfile
-    });
-
     describe('transformations', () => {
-        it('inverts color', done => {
+        it('checks that buffer is correctly written', done => {
             const bitmap = new BitmapTransformer(buffer);
-            //const bmpBuffer = bitmap.transform(invert);
-            console.log(' about to write');
+            const bmpBuffer = bitmap.transform(invert);
+
             bitmap.write('./test/output.bmp', (err, buffer) => {
                 if (err) done(err);
                 else {
-                    console.log('about to read');
                     fs.readFile('./test/output.bmp', (err, buffer) => {
-                        assert.deepEqual(buffer, buffer);
+                        assert.deepEqual(buffer, bmpBuffer);
                         done();
                     })
                 }
             });
 
-        });
+        }); // check buffer writes
+        it('checks invert results are transformed', () => {
+            const color = {
+                r: 100,
+                g: 100,
+                b: 100
+            };
+            const inverted = invert(color);
+            assert.deepEqual(inverted, { r: 155, g: 155, b: 155 });
+        })
+
     }); // close describe transformations
 
 }); //close test
