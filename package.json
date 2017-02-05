@@ -10,7 +10,7 @@
     "devDependencies": {},
     "chai": "^3.5.0",
     "scripts": {
-        "test": "mocha/test",
+        "test": "mocha",
         "eslint": "eslint app"
     },
     "repository": {
