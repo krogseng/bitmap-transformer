@@ -37,21 +37,34 @@ describe('all about the bitmap', () => {
         done();
     });
 
-    it.skip('test whole transform ', done => {
+    it.skip('test whole transform actually testing for write ', done => {
         //this is for transform magic
         const bitmap = new BitmapTransformer(buffer);
         //what I'm really after
-        fs.readFile('./test/output.bmp', (err, buffer) => {
+
+        BitmapTransformer.write('./test/output.bmp', (err, buffer) => {
+
             //assert.deepEqual(bitmap.buffer, buffer);
             done();
         }); //end of readfile
     });
 
-    describe('transformations', done => {
+    describe('transformations', () => {
         it('inverts color', done => {
-            // i'll be back
-            //assert.deepEqual("ok")
-            done();
+            const bitmap = new BitmapTransformer(buffer);
+            //const bmpBuffer = bitmap.transform(invert);
+            console.log(' about to write');
+            bitmap.write('./test/output.bmp', (err, buffer) => {
+                if (err) done(err);
+                else {
+                    console.log('about to read');
+                    fs.readFile('./test/output.bmp', (err, buffer) => {
+                        assert.deepEqual(buffer, buffer);
+                        done();
+                    })
+                }
+            });
+
         });
     }); // close describe transformations
 
