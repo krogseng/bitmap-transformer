@@ -6,6 +6,7 @@
   "directories": {
     "test": "test"
   },
+
   "dependencies": {
     "eslint": "^3.15.0",
     "fs": "0.0.1-security"
