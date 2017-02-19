@@ -45,7 +45,7 @@ describe('test whole transformation of the bitmap', () => {
                 if (err) done(err);
                 else {
                     fs.readFile('./test/output.bmp', (err, buffer) => {
-                        assert.deepEqual(buffer, bmpBuffer);
+                        assert.deepEqual(bitmap.buffer, buffer);
                         done();
                     })
                 }

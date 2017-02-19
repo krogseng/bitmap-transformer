@@ -17,9 +17,7 @@
         "no-console": "off",
         "indent": [
             "error",
-            4,
-            "error",
-            "tab"
+            4
         ],
         "linebreak-style": [
             "error",
